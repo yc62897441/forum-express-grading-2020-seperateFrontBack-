@@ -5,6 +5,7 @@ const passport = require('../config/passport')
 const helpers = require('../_helpers')
 
 const adminController = require('../controllers/api/adminController')
+const categoryController = require('../controllers/api/categoryController')
 
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -33,5 +34,8 @@ const authenticatedAdmin = (req, res, next) => {
 }
 
 router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
+
+router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
 
 module.exports = router
