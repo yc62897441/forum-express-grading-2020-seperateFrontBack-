@@ -33,9 +33,10 @@ const authenticatedAdmin = (req, res, next) => {
   return res.redirect('/signin')
 }
 
-router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
-router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
+router.get('/admin/restaurants', adminController.getRestaurants)
+router.get('/admin/restaurants/:id', adminController.getRestaurant)
+router.delete('/admin/restaurants/:id', adminController.deleteRestaurant)
 
-router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
+router.get('/admin/categories', categoryController.getCategories)
 
 module.exports = router
