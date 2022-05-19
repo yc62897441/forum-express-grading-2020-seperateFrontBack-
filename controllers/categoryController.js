@@ -11,44 +11,30 @@ let categoryController = {
   },
 
   postCategory: (req, res) => {
-    if (!req.body.name) {
-      req.flash('error_messages', 'name didn\'t exist')
-      return res.redirect('back')
-    }
-
-    return Category.create({
-      name: req.body.name
+    categoryService.postCategory(req, res, (data) => {
+      if (data['status'] === 'error') {
+        req.flash('error_messages', data['message'])
+        return res.redirect('back')
+      }
+      return res.redirect('/admin/categories')
     })
-      .then(category => {
-        res.redirect('/admin/categories')
-      })
   },
 
   putCategory: (req, res) => {
-    if (!req.body.name) {
-      req.flash('error_messages', 'name didn\'t exist')
-      return res.redirect('back')
-    }
-
-    return Category.findByPk(req.params.id)
-      .then(category => {
-        category.update({
-          name: req.body.name
-        })
-      })
-      .then(category => {
-        res.redirect('/admin/categories')
-      })
+    categoryService.putCategory(req, res, (data) => {
+      if (data['status'] === 'error') {
+        req.flash('error_messages', data['message'])
+        return res.redirect('back')
+      } else {
+        return res.redirect('/admin/categories')
+      }
+    })
   },
 
   deleteCategory: (req, res) => {
-    return Category.findByPk(req.params.id)
-      .then(category => {
-        category.destroy()
-      })
-      .then((category) => {
-        res.redirect('/admin/categories')
-      })
+    categoryService.deleteCategory(req, res,(data) => {
+      return res.redirect('/admin/categories')
+    })
   }
 }
 
