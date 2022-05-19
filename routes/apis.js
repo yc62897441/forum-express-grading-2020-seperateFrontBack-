@@ -6,6 +6,7 @@ const helpers = require('../_helpers')
 
 const adminController = require('../controllers/api/adminController')
 const categoryController = require('../controllers/api/categoryController')
+const userController = require('../controllers/api/userController.js')
 
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -44,5 +45,7 @@ router.post('/admin/categories', categoryController.postCategory)
 router.get('/admin/categories/:id', categoryController.getCategories)
 router.put('/admin/categories/:id', categoryController.putCategory)
 router.delete('/admin/categories/:id', categoryController.deleteCategory)
+
+router.post('/signin', userController.signIn)
 
 module.exports = router
